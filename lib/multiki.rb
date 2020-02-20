@@ -3,6 +3,7 @@ class Multiki
   def initialize(tasks, concurrency: 10)
     @concurrency = concurrency
     @queue = Queue.new
+    @active = true
 
     self.<< tasks
   end
@@ -33,10 +34,13 @@ class Multiki
 
   def player
     Thread.new do
-      while !@queue.empty?
+      while !@queue.empty? && @active
         begin
           task = @queue.pop
           yield task.call
+        rescue StopIteration => e
+          @active = false
+          puts "Stop iteration due to #{e.message}"
         rescue StandardError => e
           puts "Unhandled error: #{e.inspect}"
         end

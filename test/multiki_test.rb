@@ -12,4 +12,11 @@ class MultikiTest < Minitest::Test
     ]
     assert_equal 'Time for: Cartoons!', Multiki.new(tasks).to_a.join(' ')
   end
+
+  def test_it_stops_iteration
+    tasks = [ ->{ sleep(0.05); 1 } ] * 10
+    tasks[3] = -> { raise StopIteration.new('Time for rest!') }
+
+    assert_equal true, Multiki.new(tasks).to_a.sum < 10
+  end
 end

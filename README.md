@@ -44,6 +44,18 @@ tasks = [
    end
 ```
 
+## Control iteration
+
+In order to stop further iteration of task `StopIteration` can be used:
+
+```ruby
+   tasks = [ -> { raise StopIteration.new('API quota exhausted') }]
+
+   Multiki.new(tasks).each do |result|
+     save_result_to_a_storage(result)
+   end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

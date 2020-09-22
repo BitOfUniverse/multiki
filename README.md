@@ -21,7 +21,7 @@ Or install it yourself as:
 
 ## Usage
 
-1. Describe your asynchronous tasks as objects that respond to call method
+1. Describe your asynchronous tasks as objects that respond to a `call` method:
 
 ```ruby
 tasks = [
@@ -30,13 +30,13 @@ tasks = [
 ]
 ```
 
-2. Pass tasks to `Multiki.new` object
+2. Create new instance of `Multiki` class and pass tasks to it:
 
 ```ruby
   multiki = Multiki.new(tasks)
 ```
 
-3. Access results using standard enumerable methods:
+3. Get results using standard enumerable methods:
 
 ```ruby
    multiki.each do |result|
